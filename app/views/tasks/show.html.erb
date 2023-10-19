@@ -1,6 +1,37 @@
 <h1> <%= @task.title %> </h1>
 <p> <%= @task.description %> </p>
 
+
+<h2>sub_tasks</h2>
+<% @task.sub_tasks.each do |sub_task| %>
+  <p>
+    <strong>sub_task:</strong>
+    <%= sub_task.title %>
+  </p>
+
+  <p>
+    <strong>sub_task:</strong>
+    <%= sub_task.description %>
+  </p>
+
+  <p> <%= link_to 'Edit', edit_task_sub_task_path(sub_task) %> </p>
+  
+<% end %>
+
+<%= form_with model: [ @task, @task.sub_tasks.build ] do |form| %>
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </p>
+  <p>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+
 <ul>
   <li> <%= link_to 'Edit', edit_task_path(@task) %> </li>
 </ul>
