@@ -1,6 +1,6 @@
 class SubTasksController < ApplicationController 
   def create
-  
+   
     @task = Task.find(params[:task_id])
     @sub_task = @task.sub_tasks.create(sub_task_params)
     redirect_to task_path(@task)
@@ -30,6 +30,6 @@ class SubTasksController < ApplicationController
 
   private 
   def sub_task_params
-    params.require(:sub_task).permit(:title, :description)    
+    params.require(:sub_task).permit(:title, :description, :status)    
   end
 end

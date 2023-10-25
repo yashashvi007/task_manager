@@ -4,7 +4,7 @@ class TasksController < ApplicationController
       if current_user.role == 'admin'
         @tasks = Task.all 
       else 
-        user = User.find_by(id: 5)
+        user = User.find_by(id: current_user.id)
         @tasks = user.tasks
       end
     end
@@ -21,9 +21,7 @@ class TasksController < ApplicationController
   end
 
   def create 
-    debugger
     @task = Task.new(task_params)
-    
     @task.user_id = current_user.id
     if @task.save 
       redirect_to tasks_path
@@ -53,7 +51,7 @@ class TasksController < ApplicationController
 
   private 
   def task_params 
-    params.require(:task).permit(:title, :description)
+    params.require(:task).permit(:title, :description, :status)
   end
 
 end

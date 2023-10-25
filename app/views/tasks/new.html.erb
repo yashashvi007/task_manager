@@ -23,14 +23,6 @@
     <%= form.select :status,  selected: ['in-progress' , 'completed', 'paused'] %>
   </p>
 
-  <%= form.hidden_field :users, value: @users.ids %>
-
-  <select name="users[]" multiple="multiple" >
-    <%= @users.each do |user| %>
-      <option value="<%= user.id%>" > <%= user.email %> </option>
-    <% end %>
-  </select>
-
   <div>
     <%= form.submit %>
   </div>
