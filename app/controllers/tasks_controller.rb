@@ -1,17 +1,27 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all     
+    if user_signed_in? 
+      if current_user.role == 'admin'
+        @tasks = Task.all 
+      else 
+        user = User.find_by(id: 5)
+        @tasks = user.tasks
+      end
+    end
   end
 
   def new
     @task = Task.new 
+    @users = User.all
   end
 
   def show
     @task = Task.find(params[:id])    
+    @users = User.all
   end
 
   def create 
+    debugger
     @task = Task.new(task_params)
     
     @task.user_id = current_user.id
@@ -27,7 +37,6 @@ class TasksController < ApplicationController
   end    
  
   def update
-     
     @task = Task.find(params[:id])
     if @task.update(task_params)
       redirect_to tasks_path

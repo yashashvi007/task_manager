@@ -1,4 +1,5 @@
-<h1>Create Task</h1>
+<div class="container" >
+  <h1>Create Task</h1>
 
 <%= form_with model: @task do |form| %> 
   <div class="form-group">
@@ -17,13 +18,23 @@
     <% end %>
   </div>
 
-  
+  <p>
+    <%= form.label :status %><br>
+    <%= form.select :status,  selected: ['in-progress' , 'completed', 'paused'] %>
+  </p>
+
+  <%= form.hidden_field :users, value: @users.ids %>
+
+  <select name="users[]" multiple="multiple" >
+    <%= @users.each do |user| %>
+      <option value="<%= user.id%>" > <%= user.email %> </option>
+    <% end %>
+  </select>
 
   <div>
     <%= form.submit %>
   </div>
 
+  <% end %>
 
-  
-
-<% end %>
+  </div>

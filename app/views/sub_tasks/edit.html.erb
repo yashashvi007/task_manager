@@ -1,13 +1,17 @@
-<%= form_with model: @sub_task do |form|  %>
-<p>
-  <%= form.label :title %><br>
-  <%= form.text_field :title %>
-</p>
-<p>
-  <%= form.label :description %><br>
-  <%= form.text_area :description %>
-</p>
-<p>
-  <%= form.submit %>
-</p>
-<% end %>
+<div class="container" >
+   <form class="p-2">
+    <%= form_with(model: @sub_task , url:task_sub_task_path) do |form| %> 
+    <p class="form-group" >
+      <%= form.label :title %><br>
+      <%= form.text_field :title %>
+    </p>
+    <p class="form-group" >
+      <%= form.label :description %><br>
+      <%= form.text_area :description %>
+    </p>
+    <p>
+      <%= form.submit %>
+    </p>
+    <% end %>
+   </form>
+</div>
