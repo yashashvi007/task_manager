@@ -1,6 +1,54 @@
-<h1> <%= @task.title %> </h1>
-<p> <%= @task.description %> </p>
+<div class="container" >
+  <h1>  Title:  <%= @task.title %> </h1>
+  <p>  description: <%= @task.description %> </p>
 
-<ul>
-  <li> <%= link_to 'Edit', edit_task_path(@task) %> </li>
-</ul>
+
+<h2>Sub Tasks</h2>
+<% @task.sub_tasks.each do |sub_task| %>
+  <p>
+    title: <%= sub_task.title %>
+  </p>
+
+  <p>
+    <strong>description:</strong>
+    <%= sub_task.description %>
+  </p>
+
+
+  <p>
+    <strong>status:</strong>
+    <%= sub_task.status %>
+  </p>
+  <% if user_signed_in? %>
+     
+  <% end %>
+
+  <p> <%= link_to 'Edit', edit_task_sub_task_path(sub_task) %> </p>
+  
+<% end %>
+
+  <% if current_user.role == "admin" %>
+    <%= form_with model: [ @task, @task.sub_tasks.build ] do |form| %>
+    <p>
+      <%= form.label :title %><br>
+      <%= form.text_field :title %>
+    </p>
+    <p>
+      <%= form.label :description %><br>
+      <%= form.text_area :description %>
+    </p>
+    <p>
+      <%= form.label :status %><br>
+      <%= form.select :status,  selected: ['in-progress' , 'completed', 'paused'] %>
+    </p>
+    <p>
+      <%= form.submit %>
+    </p>
+    <ul>
+      <li> <%= link_to 'Edit', edit_task_path(@task) %> </li>
+    </ul>
+  <% end %>
+<% end %>
+
+
+</div>
